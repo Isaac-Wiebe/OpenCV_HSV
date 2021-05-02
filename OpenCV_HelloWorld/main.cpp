@@ -38,7 +38,7 @@ int main(int argc, const char * argv[]) {
         
         //string image_path = samples::findFile("aloeL.jpg", false, false); Does not work
        
-        string image_path = getTruePath("baboon.jpg");
+        string image_path = getTruePath("smarties.png");
         Mat img = imread(image_path, IMREAD_COLOR);
         
         
