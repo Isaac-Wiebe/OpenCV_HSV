@@ -13,7 +13,9 @@
 #include <opencv2/highgui.hpp>
 
 // Note to check environment variables type in printenv in the terminal // //
-// docs.opencv.org/3.4/d5/d98/tutorial_mat_operations.html -> Tutorial
+// docs.opencv.org/3.4/d5/d98/tutorial_mat_operations.html -> Tutorial on image Mat components
+
+// docs.opencv.org/master/d6/d6d/tutorial_mat_the_basic_image_container.html
 
 // docs.opencv.org/3.4/d6/dba/group__core__utils__samples.html -> Reference
 
@@ -30,7 +32,8 @@ String getTruePath(string path)
     
 }
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[])
+{
     
     try {
         
@@ -38,8 +41,12 @@ int main(int argc, const char * argv[]) {
        
         string image_path = getTruePath("smarties.png");
         
-        Mat img1, img2;
+        Mat img1;
         img1 = imread(image_path, IMREAD_COLOR);
+    
+        Mat img1R(img1.rows, img1.cols, CV_8UC3, Scalar::all(0));
+        Mat img1G(img1.rows, img1.cols, CV_8UC3, Scalar::all(0));
+        Mat img1B(img1.rows, img1.cols, CV_8UC3, Scalar::all(0));
        // Mat img2(img1); Copies img1 into img2
         
         // Mat D(img1, Rect(200, 200, 100, 100)); Creates a sub image
@@ -48,6 +55,7 @@ int main(int argc, const char * argv[]) {
             cout << "Could not read the image\n";
             return 1;
         }
+        
         imshow("Display window", img1);
         int k = waitKey(0); // Wait for a keystroke
         
@@ -57,35 +65,71 @@ int main(int argc, const char * argv[]) {
         }
         
         
-        for(int j = 0;j < img1.rows;j++)
+       // int channels = img1.channels();
+        
+        int nRows = img1.rows;
+        int nCols = img1.cols;
+        
+      /*  if (img1.isContinuous())
         {
-            for(int i = 0;i < img1.cols;i++)
+            nCols *= nRows;
+            nRows = 1;
+        } */
+        
+        int i, j;
+        uchar* p;
+        
+        uchar table[256];
+        for (int k = 0; k < 256; ++k)
+        {
+            table[k] = (uchar)(k);
+        }
+        
+        
+        
+        for(i = 0; i <nRows; ++i)
+        {
+            p = img1.ptr<uchar>(i);
+            
+            for (j = 0; j < nCols; j++)
             {
-                Vec3f intensity = img1.at<Vec3f>(j, i);
-                float blue = intensity.val[0];
-                float green = intensity.val[1];
-                float red = intensity.val[2];
                 
-                if (red > 200) {
-                    red = 0;
-                    blue = 255;
+          
+                Vec3b bgr = img1.at<Vec3b>(i, j);
+                // We want to change all red pixels to blue
+                if (bgr[2] > 150 && bgr[1] < 80 && bgr[0] < 80)
+                {
+                    // Identified a red pixel
+                    img1.at<Vec3b>(i, j)[0] = 255; // Saturate blue
+                    img1.at<Vec3b>(i, j)[1] = 0;
+                    img1.at<Vec3b>(i, j)[2] = 0; // Set red and green channels to 0
+                    
                 }
                 
                 
-               
+                
+                                
             }
+            
         }
         
-      
+        imshow("Modified candy", img1);
+        k = waitKey(0); // Wait for a keystroke
         
-
+        if (k == 's')
+        {
+            imwrite("smarties.png", img1);
+        }
+        
+        
+        
+        
         return 0;
         
-            
-        
     }
-        catch (Exception e) {
+        catch (Exception e)
+    {
         cout << "Could not read the image in exception\n";
     }
    
-    }
+}
