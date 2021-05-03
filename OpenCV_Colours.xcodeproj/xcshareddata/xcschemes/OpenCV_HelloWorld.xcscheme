@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E54DDE59263E18A10006C0A2"
-               BuildableName = "OpenCV_HelloWorld"
-               BlueprintName = "OpenCV_HelloWorld"
-               ReferencedContainer = "container:OpenCV_HelloWorld.xcodeproj">
+               BuildableName = "OpenCV_Colours"
+               BlueprintName = "OpenCV_Colours"
+               ReferencedContainer = "container:OpenCV_Colours.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E54DDE59263E18A10006C0A2"
-            BuildableName = "OpenCV_HelloWorld"
-            BlueprintName = "OpenCV_HelloWorld"
-            ReferencedContainer = "container:OpenCV_HelloWorld.xcodeproj">
+            BuildableName = "OpenCV_Colours"
+            BlueprintName = "OpenCV_Colours"
+            ReferencedContainer = "container:OpenCV_Colours.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E54DDE59263E18A10006C0A2"
-            BuildableName = "OpenCV_HelloWorld"
-            BlueprintName = "OpenCV_HelloWorld"
-            ReferencedContainer = "container:OpenCV_HelloWorld.xcodeproj">
+            BuildableName = "OpenCV_Colours"
+            BlueprintName = "OpenCV_Colours"
+            ReferencedContainer = "container:OpenCV_Colours.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
