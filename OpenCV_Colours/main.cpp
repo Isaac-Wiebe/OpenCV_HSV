@@ -30,17 +30,41 @@ String getTruePath(String path)
 int main(int argc, const char * argv[])
 {
     try {
+        Mat img1(1000, 1000, CV_8UC3, Scalar(0)); // Initialize a matrix of zeros, should be black
         
-        //string image_path = samples::findFile("aloeL.jpg", false, false); Does not work
-       
-        std::string image_path = getTruePath("smarties.png");
+        Mat fpersp = Mat::eye(4, 4, CV_32F);
+        float focal_length = 4;
+        fpersp.at<float>(3, 2) = 1.0/focal_length;
         
-        Mat img1;
-        img1 = imread(image_path, IMREAD_COLOR);
-    
+        Mat QRP1 = (Mat_<double>(4, 4) << 0.866, 0, -0.5, 0, 0, 1, 0, 0, 0.5, 0, 0.866, 0, 0, 0, 0, 1);
+        
+        
+        Mat QRP2 = (Mat_<double>(4, 4) << .9659, 0, 0.2588, -1830,
+                    0, 1, 0, 0,
+                    -0.2588, 0, 0.9659, 1460,
+                    0, 0, 0, 1);
+        
+        Mat QRP3 = (Mat_<double>(4, 4) << 0.5, 0, 0.866, 1366,
+                    0, 1, 0, 0, -0.866, 0, 0.5, 1334, 0, 0, 0, 1);
+        
+        Mat picGrid(640, 640, CV_8UC3, Scalar(0));
+        
+        for (int y = 0; y <2000; y++)
+        {
+            for (int x = 0; x < 2000; x++)
+            {
+                
+                
+                
+            }
+        }
+        
+
         Mat img1R(img1.rows, img1.cols, CV_8UC3, Scalar::all(0));
         Mat img1G(img1.rows, img1.cols, CV_8UC3, Scalar::all(0));
         Mat img1B(img1.rows, img1.cols, CV_8UC3, Scalar::all(0));
+        
+        
        // Mat img2(img1); Copies img1 into img2
         
         // Mat D(img1, Rect(200, 200, 100, 100)); Creates a sub image
@@ -51,7 +75,7 @@ int main(int argc, const char * argv[])
         }
         
         imshow("Display window", img1);
-        int k = waitKey(0); // Wait for a keystroke
+       /* int k = waitKey(0); // Wait for a keystroke
         
         if (k == 's')
         {
@@ -64,11 +88,11 @@ int main(int argc, const char * argv[])
         int nRows = img1.rows;
         int nCols = img1.cols;
         
-      /*  if (img1.isContinuous())
-        {
-            nCols *= nRows;
-            nRows = 1;
-        } */
+      //  if (img1.isContinuous())
+      //  {
+      //      nCols *= nRows;
+      //      nRows = 1;
+      //  }
         
         int i, j;
         uchar* p;
@@ -99,7 +123,7 @@ int main(int argc, const char * argv[])
         if (k == 's')
         {
             imwrite("smarties.png", img1);
-        }
+        } */
         return 0;
     }
     catch (Exception e)
