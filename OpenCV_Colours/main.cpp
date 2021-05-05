@@ -30,8 +30,11 @@ String getTruePath(String path)
 int main(int argc, const char * argv[])
 {
     try {
-        Mat img1(1000, 1000, CV_8UC3, Scalar(0)); // Initialize a matrix of zeros, should be black
         
+        // Image setup
+        Mat img1(2000, 2000, CV_8UC3, Scalar(0)); // Initialize a matrix of zeros, should be black
+        
+        // Matrix Setup
         Mat fpersp = Mat::eye(4, 4, CV_32F);
         float focal_length = 4;
         fpersp.at<float>(3, 2) = 1.0/focal_length;
@@ -49,11 +52,13 @@ int main(int argc, const char * argv[])
         
         Mat picGrid(640, 640, CV_8UC3, Scalar(0));
         
+        // Transformed points into the image
         for (int y = 0; y <2000; y++)
         {
+            
             for (int x = 0; x < 2000; x++)
             {
-                
+                Point3f P(x - 1000, y - 1000, 0);
                 
                 
             }
