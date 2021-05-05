@@ -19,13 +19,12 @@
 
 
 using namespace cv;
-using namespace std;
 
-String getTruePath(string path)
+
+String getTruePath(String path)
 {
-    string base_path = "samples/data/";
+    std::string base_path = "samples/data/";
     return base_path + path;
-    
 }
 
 int main(int argc, const char * argv[])
@@ -34,7 +33,7 @@ int main(int argc, const char * argv[])
         
         //string image_path = samples::findFile("aloeL.jpg", false, false); Does not work
        
-        string image_path = getTruePath("smarties.png");
+        std::string image_path = getTruePath("smarties.png");
         
         Mat img1;
         img1 = imread(image_path, IMREAD_COLOR);
@@ -47,7 +46,7 @@ int main(int argc, const char * argv[])
         // Mat D(img1, Rect(200, 200, 100, 100)); Creates a sub image
         if (img1.empty())
         {
-            cout << "Could not read the image\n";
+            std::cout << "Could not read the image\n";
             return 1;
         }
         
@@ -105,7 +104,7 @@ int main(int argc, const char * argv[])
     }
     catch (Exception e)
     {
-        cout << "Could not read the image in exception\n";
+        std::cout << "Could not read the image in exception\n";
     }
    
 }
