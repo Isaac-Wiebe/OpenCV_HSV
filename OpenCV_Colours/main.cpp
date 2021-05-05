@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  OpenCV_HelloWorld
+//  OpenCV_AffineTransforms
 //
 //  Created by Isaac Wiebe on 2021-05-01.
 //
