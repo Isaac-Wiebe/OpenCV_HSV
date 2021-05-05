@@ -6,8 +6,6 @@
 //
 
 #include <iostream>
-
-
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
@@ -23,8 +21,6 @@
 using namespace cv;
 using namespace std;
 
-
-
 String getTruePath(string path)
 {
     string base_path = "samples/data/";
@@ -34,7 +30,6 @@ String getTruePath(string path)
 
 int main(int argc, const char * argv[])
 {
-    
     try {
         
         //string image_path = samples::findFile("aloeL.jpg", false, false); Does not work
@@ -78,41 +73,27 @@ int main(int argc, const char * argv[])
         
         int i, j;
         uchar* p;
-        
         uchar table[256];
         for (int k = 0; k < 256; ++k)
         {
-            table[k] = (uchar)(k);
+            table[k] = (uchar)(k); //
         }
-        
-        
-        
         for(i = 0; i <nRows; ++i)
         {
             p = img1.ptr<uchar>(i);
-            
             for (j = 0; j < nCols; j++)
             {
-                
-          
                 Vec3b bgr = img1.at<Vec3b>(i, j);
                 // We want to change all red pixels to blue
-                if (bgr[2] > 150 && bgr[1] < 80 && bgr[0] < 80)
+                if (bgr[2] > 150 && bgr[1] < 100 && bgr[0] < 100)
                 {
                     // Identified a red pixel
                     img1.at<Vec3b>(i, j)[0] = 255; // Saturate blue
                     img1.at<Vec3b>(i, j)[1] = 0;
                     img1.at<Vec3b>(i, j)[2] = 0; // Set red and green channels to 0
-                    
                 }
-                
-                
-                
-                                
             }
-            
         }
-        
         imshow("Modified candy", img1);
         k = waitKey(0); // Wait for a keystroke
         
@@ -120,14 +101,9 @@ int main(int argc, const char * argv[])
         {
             imwrite("smarties.png", img1);
         }
-        
-        
-        
-        
         return 0;
-        
     }
-        catch (Exception e)
+    catch (Exception e)
     {
         cout << "Could not read the image in exception\n";
     }
