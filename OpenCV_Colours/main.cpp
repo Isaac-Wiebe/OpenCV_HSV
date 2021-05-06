@@ -29,10 +29,13 @@ String getTruePath(String path)
 
 Mat getimg1()
 {
+  
     Mat img1(2000, 2000, CV_8UC3, Scalar(0)); // Initialize a matrix of zeros, should be black
-    for (int y = 0; y < 2000; y++)
+    int nRows = img1.rows;
+    int nCols = img1.cols;
+    for (int y = 0; y < nRows; y++)
     {
-        for (int x = 0; x < 2000; x++)
+        for (int x = 0; x < nCols; x++)
         {
             img1.at<Vec3b>(y, x)[2] = 255; // Saturated red channel
             img1.at<Vec3b>(y, x)[0] = 255; // Saturated blue       channel
@@ -48,7 +51,7 @@ Mat getimg1()
         }
     }
     
-    
+  
     return img1;
     
 }
@@ -57,9 +60,11 @@ Mat getimg2()
 {
     Mat img2(2000, 2000, CV_8UC3, Scalar(0));
     
-    for (int y = 0; y < img2.rows; y++)
+    int nRows = img2.rows;
+    int nCols = img2.cols;
+    for (int y = 0; y < nRows; y++)
     {
-        for (int x = 0; x < img2.cols; x++)
+        for (int x = 0; x < nCols; x++)
         {
             if (y < 1000)
             {
@@ -71,15 +76,18 @@ Mat getimg2()
             }
         }
     }
+ 
     return img2;
 }
 
 Mat getimg3()
 {
     Mat img3(2000, 2000, CV_8UC3, Scalar(0));
-    for (int y = 0; y < img3.rows; y++)
+    int nRows = img3.rows;
+    int nCols = img3.cols;
+    for (int y = 0; y < nRows; y++)
     {
-        for (int x = 0; x < img3.cols; x++)
+        for (int x = 0; x < nCols; x++)
         {
             if (x < 667)
             {
@@ -113,13 +121,11 @@ int main(int argc, const char * argv[])
         Mat img2 = getimg2();
         Mat img3 = getimg3();
         
-    
         // Matrix Setup
-        Mat fpersp = Mat::eye(4, 4, CV_32F);
         float focal_length = 4;
-        fpersp.at<float>(3, 2) = 1.0/focal_length;
-        
-        Mat QRP1 = (Mat_<double>(4, 4) << 0.866, 0, -0.5, 0, 0, 1, 0, 0, 0.5, 0, 0.866, 0, 0, 0, 0, 1);
+
+        Mat fpersp = (Mat_<double>(4, 4) << 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1/focal_length, 1);
+        Mat QRP1 = (Mat_<double>(4, 4) << 0.866, 0, -0.5, 0, 0, 1, 0, 0, 0.5, 0, 0.866, 1700, 0, 0, 0, 1);
         
         
         Mat QRP2 = (Mat_<double>(4, 4) << .9659, 0, 0.2588, -1830,
@@ -131,87 +137,61 @@ int main(int argc, const char * argv[])
                     0, 1, 0, 0, -0.866, 0, 0.5, 1334, 0, 0, 0, 1);
         
         Mat picGrid(640, 640, CV_8UC3, Scalar(0));
-        
         // Transformed points into the image
         for (int y = 0; y <2000; y++)
         {
             
             for (int x = 0; x < 2000; x++)
             {
-                Point3f P(x - 1000, y - 1000, 0);
-            }
-        }
+                Mat P = (Mat_<double>(4, 1) <<x - 1000, y - 1000, 0, 1);
+                
+                Mat temp = fpersp * QRP1;
+                temp = temp * P;
+                
+                double w = temp.at<double>(3);
         
-
-        Mat img1R(img1.rows, img1.cols, CV_8UC3, Scalar::all(0));
-        Mat img1G(img1.rows, img1.cols, CV_8UC3, Scalar::all(0));
-        Mat img1B(img1.rows, img1.cols, CV_8UC3, Scalar::all(0));
-        
-        
-       // Mat img2(img1); Copies img1 into img2
-        
-        // Mat D(img1, Rect(200, 200, 100, 100)); Creates a sub image
-        if (img1.empty())
-        {
-            std::cout << "Could not read the image\n";
-            return 1;
-        }
-        
-        
-       /* int k = waitKey(0); // Wait for a keystroke
-        
-        if (k == 's')
-        {
-            imwrite("smarties.png", img1);
-        }
-        
-        
-       // int channels = img1.channels();
-        
-        int nRows = img1.rows;
-        int nCols = img1.cols;
-        
-      //  if (img1.isContinuous())
-      //  {
-      //      nCols *= nRows;
-      //      nRows = 1;
-      //  }
-        
-        int i, j;
-        uchar* p;
-        uchar table[256];
-        for (int k = 0; k < 256; ++k)
-        {
-            table[k] = (uchar)(k); //
-        }
-        for(i = 0; i <nRows; ++i)
-        {
-            p = img1.ptr<uchar>(i);
-            for (j = 0; j < nCols; j++)
-            {
-                Vec3b bgr = img1.at<Vec3b>(i, j);
-                // We want to change all red pixels to blue
-                if (bgr[2] > 150 && bgr[1] < 100 && bgr[0] < 100)
+                temp.at<double>(0) = temp.at<double>(0) / w;
+                temp.at<double>(1) = temp.at<double>(1) / w;
+                temp.at<double>(2) = 0;
+                
+                
+                double xCord = temp.at<double>(0);
+                double yCord = temp.at<double>(1);
+                
+                
+                
+                if (round(xCord * SCALE_FACTOR) + 640/2 > 0 && round(yCord * SCALE_FACTOR) + 640/2 > 0 && round(xCord * SCALE_FACTOR) + 640/2 < 640 && round(yCord * SCALE_FACTOR) + 640/2 < 640)
                 {
-                    // Identified a red pixel
-                    img1.at<Vec3b>(i, j)[0] = 255; // Saturate blue
-                    img1.at<Vec3b>(i, j)[1] = 0;
-                    img1.at<Vec3b>(i, j)[2] = 0; // Set red and green channels to 0
+                    Vec3b RGB = img1.at<Vec3b>(y, x);
+                    picGrid.at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[0] = RGB[0];
+                    
+                    picGrid.at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[1] = RGB[1];
+                    picGrid.at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[2] = RGB[2];
+                    
                 }
             }
         }
-        imshow("Modified candy", img1);
-        k = waitKey(0); // Wait for a keystroke
         
-        if (k == 's')
-        {
-            imwrite("smarties.png", img1);
-        } */
+        imshow("Display image", picGrid);
+        int k = waitKey(0);
+        
+
+       // Mat img2(img1); Copies img1 into img2
+        
+        // Mat D(img1, Rect(200, 200, 100, 100)); Creates a sub image at x, y by nxn
+       
+        
+  
+       
+    
+        
+      
         return 0;
     }
     catch (Exception e)
     {
         std::cout << "Could not read the image in exception\n";
+        return -1;
     }
    
 }
