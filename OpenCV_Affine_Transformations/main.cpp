@@ -84,45 +84,6 @@ Mat getimg2()
     return img2;
 }
 
-void addImage1(Mat *picGrid, Mat img1, Mat fpersp, Mat QRP1)
-{
-    for (int y = 0; y <2000; y++)
-    {
-        for (int x = 0; x < 2000; x++)
-        {
-        
-        
-            Mat P = (Mat_<double>(4, 1) <<x - 1000, y - 1000, 0, 1);
-            
-            Mat temp = fpersp * QRP1;
-            temp = temp * P;
-            
-            double w = temp.at<double>(3);
-    
-            temp.at<double>(0) = temp.at<double>(0) / w;
-            temp.at<double>(1) = temp.at<double>(1) / w;
-            temp.at<double>(2) = 0;
-            
-            
-            double xCord = temp.at<double>(0);
-            double yCord = temp.at<double>(1);
-            if (round(xCord * SCALE_FACTOR) + 640/2 > 0 && round(yCord * SCALE_FACTOR) + 640/2 > 0 && round(xCord * SCALE_FACTOR) + 640/2 < 640 && round(yCord * SCALE_FACTOR) + 640/2 < 640)
-            {
-            
-                Vec3b RGB = img1.at<Vec3b>(y, x);
-                picGrid->at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[0] = RGB[0];
-                
-                picGrid->at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[1] = RGB[1];
-                picGrid->at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[2] = RGB[2];
-            }
-            
-            
-        }
-        
-    }
-    
-}
-
 Mat getimg3()
 {
     Mat img3(2000, 2000, CV_8UC3, Scalar(0));
@@ -152,6 +113,44 @@ Mat getimg3()
     
 }
 
+void addImage(Mat *picGrid, Mat img, Mat fpersp, Mat QRP1)
+{
+    for (int y = 0; y <2000; y++)
+    {
+        for (int x = 0; x < 2000; x++)
+        {
+        
+        
+            Mat P = (Mat_<double>(4, 1) <<x - 1000, y - 1000, 0, 1);
+            
+            Mat temp = fpersp * QRP1;
+            temp = temp * P;
+            
+            double w = temp.at<double>(3);
+    
+            temp.at<double>(0) = temp.at<double>(0) / w;
+            temp.at<double>(1) = temp.at<double>(1) / w;
+            temp.at<double>(2) = 0;
+            
+            
+            double xCord = temp.at<double>(0);
+            double yCord = temp.at<double>(1);
+            if (round(xCord * SCALE_FACTOR) + 640/2 > 0 && round(yCord * SCALE_FACTOR) + 640/2 > 0 && round(xCord * SCALE_FACTOR) + 640/2 < 640 && round(yCord * SCALE_FACTOR) + 640/2 < 640)
+            {
+            
+                Vec3b RGB = img.at<Vec3b>(y, x);
+                picGrid->at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[0] = RGB[0];
+                
+                picGrid->at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[1] = RGB[1];
+                picGrid->at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[2] = RGB[2];
+            }
+            
+            
+        }
+        
+    }
+    
+}
 
 int main(int argc, const char * argv[])
 {
@@ -179,7 +178,9 @@ int main(int argc, const char * argv[])
         
         Mat picGrid(640, 640, CV_8UC3, Scalar(0));
         
-        addImage1(&picGrid, img1, fpersp, QRP1);
+        addImage(&picGrid, img1, fpersp, QRP1);
+        addImage(&picGrid, img2, fpersp, QRP2);
+        addImage(&picGrid, img3, fpersp, QRP3);
         // Transformed points into the image
     
         
