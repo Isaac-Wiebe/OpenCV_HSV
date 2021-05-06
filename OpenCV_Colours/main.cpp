@@ -29,11 +29,35 @@ String getTruePath(String path)
 
 int main(int argc, const char * argv[])
 {
+    const double SCALE_FACTOR = 50.39; // Resolution 12.7 mm, 640 pixels, therefore 50.39 pixels per mm
+    const double SAMPLING_FACTOR = 29.29; // 3 x 2000 x 2000 pixels divided by 640 square pixels
     try {
         
         // Image setup
         Mat img1(2000, 2000, CV_8UC3, Scalar(0)); // Initialize a matrix of zeros, should be black
         
+        for (int y = 0; y < 2000; y++)
+        {
+            for (int x = 0; x < 2000; x++)
+            {
+                img1.at<Vec3b>(y, x)[2] = 255; // Saturated red channel
+                img1.at<Vec3b>(y, x)[0] = 255; // Saturated blue       channel
+            }
+        }
+        
+        for (int y = 500; y < 1500; y++)
+        {
+            for (int x = 500; x < 1500; x++)
+            {
+                img1.at<Vec3b>(x, y)[1] = 255;
+                img1.at<Vec3b>(y, x)[0] = 0;
+            }
+        }
+        
+        
+        
+        imshow("First image", img1);
+        int w = waitKey(0);
         // Matrix Setup
         Mat fpersp = Mat::eye(4, 4, CV_32F);
         float focal_length = 4;
