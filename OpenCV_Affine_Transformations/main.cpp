@@ -10,6 +10,10 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
+const double SCALE_FACTOR = 50.39; // Resolution 12.7 mm, 640 pixels, therefore 50.39 pixels per mm
+const double SAMPLING_FACTOR = 29.29; // 3 x 2000 x 2000 pixels divided by 640 square pixels
+
+
 // Note to check environment variables type in printenv in the terminal // //
 // docs.opencv.org/3.4/d5/d98/tutorial_mat_operations.html -> Tutorial on image Mat components
 
@@ -80,6 +84,45 @@ Mat getimg2()
     return img2;
 }
 
+void addImage1(Mat *picGrid, Mat img1, Mat fpersp, Mat QRP1)
+{
+    for (int y = 0; y <2000; y++)
+    {
+        for (int x = 0; x < 2000; x++)
+        {
+        
+        
+            Mat P = (Mat_<double>(4, 1) <<x - 1000, y - 1000, 0, 1);
+            
+            Mat temp = fpersp * QRP1;
+            temp = temp * P;
+            
+            double w = temp.at<double>(3);
+    
+            temp.at<double>(0) = temp.at<double>(0) / w;
+            temp.at<double>(1) = temp.at<double>(1) / w;
+            temp.at<double>(2) = 0;
+            
+            
+            double xCord = temp.at<double>(0);
+            double yCord = temp.at<double>(1);
+            if (round(xCord * SCALE_FACTOR) + 640/2 > 0 && round(yCord * SCALE_FACTOR) + 640/2 > 0 && round(xCord * SCALE_FACTOR) + 640/2 < 640 && round(yCord * SCALE_FACTOR) + 640/2 < 640)
+            {
+            
+                Vec3b RGB = img1.at<Vec3b>(y, x);
+                picGrid->at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[0] = RGB[0];
+                
+                picGrid->at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[1] = RGB[1];
+                picGrid->at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[2] = RGB[2];
+            }
+            
+            
+        }
+        
+    }
+    
+}
+
 Mat getimg3()
 {
     Mat img3(2000, 2000, CV_8UC3, Scalar(0));
@@ -112,8 +155,6 @@ Mat getimg3()
 
 int main(int argc, const char * argv[])
 {
-    const double SCALE_FACTOR = 50.39; // Resolution 12.7 mm, 640 pixels, therefore 50.39 pixels per mm
-    const double SAMPLING_FACTOR = 29.29; // 3 x 2000 x 2000 pixels divided by 640 square pixels
     try {
         
         // Image setup
@@ -137,40 +178,11 @@ int main(int argc, const char * argv[])
                     0, 1, 0, 0, -0.866, 0, 0.5, 1334, 0, 0, 0, 1);
         
         Mat picGrid(640, 640, CV_8UC3, Scalar(0));
-        // Transformed points into the image
-        for (int y = 0; y <2000; y++)
-        {
-            
-            for (int x = 0; x < 2000; x++)
-            {
-                Mat P = (Mat_<double>(4, 1) <<x - 1000, y - 1000, 0, 1);
-                
-                Mat temp = fpersp * QRP1;
-                temp = temp * P;
-                
-                double w = temp.at<double>(3);
         
-                temp.at<double>(0) = temp.at<double>(0) / w;
-                temp.at<double>(1) = temp.at<double>(1) / w;
-                temp.at<double>(2) = 0;
-                
-                
-                double xCord = temp.at<double>(0);
-                double yCord = temp.at<double>(1);
-                
-                
-                
-                if (round(xCord * SCALE_FACTOR) + 640/2 > 0 && round(yCord * SCALE_FACTOR) + 640/2 > 0 && round(xCord * SCALE_FACTOR) + 640/2 < 640 && round(yCord * SCALE_FACTOR) + 640/2 < 640)
-                {
-                    Vec3b RGB = img1.at<Vec3b>(y, x);
-                    picGrid.at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[0] = RGB[0];
-                    
-                    picGrid.at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[1] = RGB[1];
-                    picGrid.at<Vec3b>(round(yCord * SCALE_FACTOR) + 640/2, round(xCord * SCALE_FACTOR) +640/2)[2] = RGB[2];
-                    
-                }
-            }
-        }
+        addImage1(&picGrid, img1, fpersp, QRP1);
+        // Transformed points into the image
+    
+        
         
         imshow("Display image", picGrid);
         int k = waitKey(0);
@@ -180,12 +192,6 @@ int main(int argc, const char * argv[])
         
         // Mat D(img1, Rect(200, 200, 100, 100)); Creates a sub image at x, y by nxn
        
-        
-  
-       
-    
-        
-      
         return 0;
     }
     catch (Exception e)
@@ -195,3 +201,4 @@ int main(int argc, const char * argv[])
     }
    
 }
+
