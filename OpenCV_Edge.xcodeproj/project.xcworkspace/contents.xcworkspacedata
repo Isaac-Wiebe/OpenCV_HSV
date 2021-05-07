@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/isaacwiebe/Documents/Graduate Studies/Machine Vision/OpenCV /OpenCV_Colours copy/OpenCV_AffineTransforms.xcodeproj">
+      location = "self:/Users/isaacwiebe/Documents/Graduate Studies/Machine Vision/OpenCV /OpenCV_Edge/OpenCV_Edge.xcodeproj">
    </FileRef>
 </Workspace>

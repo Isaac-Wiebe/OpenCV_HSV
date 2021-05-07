@@ -78,7 +78,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E54DDE5A263E18A10006C0A2 /* OpenCV_AffineTransforms */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OpenCV_AffineTransforms; sourceTree = BUILT_PRODUCTS_DIR; };
+		E54DDE5A263E18A10006C0A2 /* OpenCV_Edge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OpenCV_Edge; sourceTree = BUILT_PRODUCTS_DIR; };
 		E54DDE5D263E18A10006C0A2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E54DDF8A263E36A80006C0A2 /* samples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = samples; path = ../../../../opencv/4.5.2/samples; sourceTree = "<group>"; };
 		E54DDF8D263E4B0C0006C0A2 /* samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = samples; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 				E54DDFBF263E63680006C0A2 /* libopencv_xobjdetect.4.5.2.dylib */,
 				E54DDF9D263E63670006C0A2 /* libopencv_xphoto.4.5.2.dylib */,
 				E54DDF8A263E36A80006C0A2 /* samples */,
-				E54DDE5C263E18A10006C0A2 /* OpenCV_Affine_Transformations */,
+				E54DDE5C263E18A10006C0A2 /* OpenCV_Edge */,
 				E54DDE5B263E18A10006C0A2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -272,26 +272,26 @@
 		E54DDE5B263E18A10006C0A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E54DDE5A263E18A10006C0A2 /* OpenCV_AffineTransforms */,
+				E54DDE5A263E18A10006C0A2 /* OpenCV_Edge */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E54DDE5C263E18A10006C0A2 /* OpenCV_Affine_Transformations */ = {
+		E54DDE5C263E18A10006C0A2 /* OpenCV_Edge */ = {
 			isa = PBXGroup;
 			children = (
 				E54DDF8D263E4B0C0006C0A2 /* samples */,
 				E54DDE5D263E18A10006C0A2 /* main.cpp */,
 			);
-			path = OpenCV_Affine_Transformations;
+			path = OpenCV_Edge;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E54DDE59263E18A10006C0A2 /* OpenCV_AffineTransforms */ = {
+		E54DDE59263E18A10006C0A2 /* OpenCV_Edge */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E54DDE61263E18A10006C0A2 /* Build configuration list for PBXNativeTarget "OpenCV_AffineTransforms" */;
+			buildConfigurationList = E54DDE61263E18A10006C0A2 /* Build configuration list for PBXNativeTarget "OpenCV_Edge" */;
 			buildPhases = (
 				E54DDE56263E18A10006C0A2 /* Sources */,
 				E54DDE57263E18A10006C0A2 /* Frameworks */,
@@ -301,9 +301,9 @@
 			);
 			dependencies = (
 			);
-			name = OpenCV_AffineTransforms;
+			name = OpenCV_Edge;
 			productName = OpenCV_HelloWorld;
-			productReference = E54DDE5A263E18A10006C0A2 /* OpenCV_AffineTransforms */;
+			productReference = E54DDE5A263E18A10006C0A2 /* OpenCV_Edge */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -319,7 +319,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E54DDE55263E18A10006C0A2 /* Build configuration list for PBXProject "OpenCV_AffineTransforms" */;
+			buildConfigurationList = E54DDE55263E18A10006C0A2 /* Build configuration list for PBXProject "OpenCV_Edge" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -332,7 +332,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E54DDE59263E18A10006C0A2 /* OpenCV_AffineTransforms */,
+				E54DDE59263E18A10006C0A2 /* OpenCV_Edge */,
 			);
 		};
 /* End PBXProject section */
@@ -489,7 +489,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E54DDE55263E18A10006C0A2 /* Build configuration list for PBXProject "OpenCV_AffineTransforms" */ = {
+		E54DDE55263E18A10006C0A2 /* Build configuration list for PBXProject "OpenCV_Edge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E54DDE5F263E18A10006C0A2 /* Debug */,
@@ -498,7 +498,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E54DDE61263E18A10006C0A2 /* Build configuration list for PBXNativeTarget "OpenCV_AffineTransforms" */ = {
+		E54DDE61263E18A10006C0A2 /* Build configuration list for PBXNativeTarget "OpenCV_Edge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E54DDE62263E18A10006C0A2 /* Debug */,

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E54DDE59263E18A10006C0A2"
-               BuildableName = "OpenCV_AffineTransforms"
-               BlueprintName = "OpenCV_AffineTransforms"
-               ReferencedContainer = "container:OpenCV_AffineTransforms.xcodeproj">
+               BuildableName = "OpenCV_Edge"
+               BlueprintName = "OpenCV_Edge"
+               ReferencedContainer = "container:OpenCV_Edge.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E54DDE59263E18A10006C0A2"
-            BuildableName = "OpenCV_AffineTransforms"
-            BlueprintName = "OpenCV_AffineTransforms"
-            ReferencedContainer = "container:OpenCV_AffineTransforms.xcodeproj">
+            BuildableName = "OpenCV_Edge"
+            BlueprintName = "OpenCV_Edge"
+            ReferencedContainer = "container:OpenCV_Edge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E54DDE59263E18A10006C0A2"
-            BuildableName = "OpenCV_AffineTransforms"
-            BlueprintName = "OpenCV_AffineTransforms"
-            ReferencedContainer = "container:OpenCV_AffineTransforms.xcodeproj">
+            BuildableName = "OpenCV_Edge"
+            BlueprintName = "OpenCV_Edge"
+            ReferencedContainer = "container:OpenCV_Edge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

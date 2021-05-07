@@ -40,7 +40,9 @@ int main(int argc, const char * argv[])
        
        
         
+        imshow("circuit board.jpg", img);
         
+        int k = waitKey(0);
         
         
         
