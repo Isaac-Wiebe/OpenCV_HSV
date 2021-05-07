@@ -12,11 +12,7 @@
 
 
 // Note to check environment variables type in printenv in the terminal // //
-// docs.opencv.org/3.4/d5/d98/tutorial_mat_operations.html -> Tutorial on image Mat components
-
-// docs.opencv.org/master/d6/d6d/tutorial_mat_the_basic_image_container.html
-
-// docs.opencv.org/3.4/d6/dba/group__core__utils__samples.html -> Reference
+// docs.opencv.org/master/d2/d2c/tutorial_sobel_derivatives.html -> Tutorial on Sobel Edge Detection
 
 
 using namespace cv;
@@ -44,7 +40,20 @@ int main(int argc, const char * argv[])
         
         int k = waitKey(0);
         
+        cvtColor(img, img, COLOR_BGR2GRAY); // Generates grayscale image
         
+        Mat grad_x, grad_y;
+        Mat abs_grad_x, abs_grad_y;
+        
+        Sobel(img, grad_x, CV_16S, 1, 0, -1, 1, 0.01, BORDER_DEFAULT);
+        Sobel(img, grad_y, CV_16S, 1, 0, -1, 1, 0.01, BORDER_DEFAULT);
+
+        // converting back to CV_8U
+        convertScaleAbs(grad_x, abs_grad_x);
+        convertScaleAbs(grad_y, abs_grad_y);
+        addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, img);
+        imshow("Sobel edge detection", img);
+        k = waitKey(0);
         
 
        // Mat img2(img1); Copies img1 into img2
