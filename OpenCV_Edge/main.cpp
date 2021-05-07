@@ -33,6 +33,7 @@ int main(int argc, const char * argv[])
        
         String path = getTruePath("board.jpg");
         Mat img = imread(path);
+        Mat sobel_img, laplace_img, laplace_gray, abs_laplace_img;
        
        
         
@@ -40,20 +41,32 @@ int main(int argc, const char * argv[])
         
         int k = waitKey(0);
         
-        cvtColor(img, img, COLOR_BGR2GRAY); // Generates grayscale image
+        cvtColor(img, sobel_img, COLOR_BGR2GRAY); // Generates grayscale image
+        cvtColor(img, laplace_gray, COLOR_BGR2GRAY);
+        
+       
         
         Mat grad_x, grad_y;
         Mat abs_grad_x, abs_grad_y;
         
-        Sobel(img, grad_x, CV_16S, 1, 0, -1, 1, 0.01, BORDER_DEFAULT);
-        Sobel(img, grad_y, CV_16S, 1, 0, -1, 1, 0.01, BORDER_DEFAULT);
+        Sobel(sobel_img, grad_x, CV_16S, 1, 0, 1, 1, 0.01, BORDER_DEFAULT);
+        
+        Sobel(sobel_img, grad_y, CV_16S, 1, 0, 1, 1, 0.01, BORDER_DEFAULT);
+        
+        Laplacian(laplace_gray, laplace_img, CV_16S, 3, 1, 0, BORDER_DEFAULT);
+        convertScaleAbs(laplace_img, abs_laplace_img);
 
         // converting back to CV_8U
         convertScaleAbs(grad_x, abs_grad_x);
         convertScaleAbs(grad_y, abs_grad_y);
-        addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, img);
-        imshow("Sobel edge detection", img);
+        addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, sobel_img);
+        
+        imshow("Sobel edge detection", sobel_img);
         k = waitKey(0);
+        
+        imshow("Laplacian Edge Detection", abs_laplace_img);
+        k = waitKey(0);
+        
         
 
        // Mat img2(img1); Copies img1 into img2
