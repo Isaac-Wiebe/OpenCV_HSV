@@ -34,6 +34,7 @@ int main(int argc, const char * argv[])
         String path = getTruePath("board.jpg");
         Mat img = imread(path);
         Mat sobel_img, laplace_img, laplace_gray, abs_laplace_img;
+        Mat canny_img;
        
        
         
@@ -43,6 +44,9 @@ int main(int argc, const char * argv[])
         
         cvtColor(img, sobel_img, COLOR_BGR2GRAY); // Generates grayscale image
         cvtColor(img, laplace_gray, COLOR_BGR2GRAY);
+        cvtColor(img, canny_img, COLOR_BGR2GRAY);
+        
+        Canny(canny_img, canny_img, 0, 0.15);
         
        
         
@@ -67,6 +71,8 @@ int main(int argc, const char * argv[])
         imshow("Laplacian Edge Detection", abs_laplace_img);
         k = waitKey(0);
         
+        imshow("Canny Edge Detection", canny_img);
+        k = waitKey(0);
         
 
        // Mat img2(img1); Copies img1 into img2
