@@ -264,7 +264,7 @@
 				E54DDFBF263E63680006C0A2 /* libopencv_xobjdetect.4.5.2.dylib */,
 				E54DDF9D263E63670006C0A2 /* libopencv_xphoto.4.5.2.dylib */,
 				E54DDF8A263E36A80006C0A2 /* samples */,
-				E54DDE5C263E18A10006C0A2 /* OpenCV_Edge */,
+				E54DDE5C263E18A10006C0A2 /* OpenCV_Matrices */,
 				E54DDE5B263E18A10006C0A2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -277,13 +277,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E54DDE5C263E18A10006C0A2 /* OpenCV_Edge */ = {
+		E54DDE5C263E18A10006C0A2 /* OpenCV_Matrices */ = {
 			isa = PBXGroup;
 			children = (
 				E54DDF8D263E4B0C0006C0A2 /* samples */,
 				E54DDE5D263E18A10006C0A2 /* main.cpp */,
 			);
-			path = OpenCV_Edge;
+			path = OpenCV_Matrices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
