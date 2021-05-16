@@ -31,7 +31,7 @@ int main(int argc, const char * argv[])
        
         String path = getTruePath("licenseplate_motion.jpg");
         Mat img = imread(path);
-        Mat dest, dest_dirFilt;
+        Mat dest, dest_dirFilt, dest_gaussFilt;
        
         
         imshow("motion.jpg", img);
@@ -53,6 +53,20 @@ int main(int argc, const char * argv[])
         
         filter2D(img, dest_dirFilt, img.depth(), kernel_dir);
         
+        Mat gauss_kernel = (Mat_<double>(7, 7) << 1., 4., 7., 10., 7., 4., 1.,
+                            4., 12., 26., 33., 26., 12., 4.,
+                            7., 26., 55., 71., 55., 26., 7.,
+                            10., 33., 71., 91., 71., 33., 10.,
+                            7., 26., 55., 71., 55., 26., 7.,
+                            4., 12., 26., 33., 26., 12., 4.,
+                            1., 4., 7., 10., 7., 4., 1.
+                            );
+        
+        gauss_kernel = gauss_kernel/1115;
+        
+        
+        filter2D(img, dest_gaussFilt, img.depth(), gauss_kernel );
+        
         
         
         
@@ -62,6 +76,8 @@ int main(int argc, const char * argv[])
         imshow("Directional Averaging filter", dest_dirFilt);
         waitKey();
         
+        imshow("Gaussian filter", dest_gaussFilt);
+        waitKey();
         
        
         return 0;
