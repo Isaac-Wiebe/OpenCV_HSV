@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E54DDE59263E18A10006C0A2"
-               BuildableName = "OpenCV_Matrices"
-               BlueprintName = "OpenCV_Matrices"
-               ReferencedContainer = "container:OpenCV_Matrices.xcodeproj">
+               BuildableName = "OpenCV_Blending"
+               BlueprintName = "OpenCV_Blending"
+               ReferencedContainer = "container:OpenCV_Blending.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E54DDE59263E18A10006C0A2"
-            BuildableName = "OpenCV_Matrices"
-            BlueprintName = "OpenCV_Matrices"
-            ReferencedContainer = "container:OpenCV_Matrices.xcodeproj">
+            BuildableName = "OpenCV_Blending"
+            BlueprintName = "OpenCV_Blending"
+            ReferencedContainer = "container:OpenCV_Blending.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E54DDE59263E18A10006C0A2"
-            BuildableName = "OpenCV_Matrices"
-            BlueprintName = "OpenCV_Matrices"
-            ReferencedContainer = "container:OpenCV_Matrices.xcodeproj">
+            BuildableName = "OpenCV_Blending"
+            BlueprintName = "OpenCV_Blending"
+            ReferencedContainer = "container:OpenCV_Blending.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
