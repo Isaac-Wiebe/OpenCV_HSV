@@ -12,6 +12,8 @@
 
 // docs.opencv.org/4.5.2/d5/dc4/tutorial_adding_images.html tutorial
 
+// These images must be the exact same dimensions for this to work
+
 
 using namespace cv;
 
@@ -29,11 +31,22 @@ int main(int argc, const char * argv[])
         
         // Image setup
        
-        String path = getTruePath("lena.jpg");
+        String path = getTruePath("aloeL.jpg");
         Mat img1 = imread(path);
         
-        path = getTruePath("opencv-logo-white.png");
+        path = getTruePath("aloeR.jpg");
         Mat img2 = imread(path);
+        
+        float alpha = 0.5;
+        float beta = 1-alpha;
+        
+        Mat combined;
+        
+        addWeighted(img1, alpha, img2, beta, 0.0, combined);
+        
+        imshow("Combined imgs", combined);
+        
+        waitKey();
         
         
 
