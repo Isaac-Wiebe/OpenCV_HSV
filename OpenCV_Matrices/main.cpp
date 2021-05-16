@@ -10,9 +10,7 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
-
-// Note to check environment variables type in printenv in the terminal // //
-// docs.opencv.org/master/d2/d2c/tutorial_sobel_derivatives.html -> Tutorial on Sobel Edge Detection
+// docs.opencv.org/4.5.2/d7/d37/tutorial_mat_mask_operations.html tutorial
 
 
 using namespace cv;
@@ -31,53 +29,40 @@ int main(int argc, const char * argv[])
         
         // Image setup
        
-        String path = getTruePath("board.jpg");
+        String path = getTruePath("licenseplate_motion.jpg");
         Mat img = imread(path);
-        Mat sobel_img, laplace_img, laplace_gray, abs_laplace_img;
-        Mat canny_img;
-       
+        Mat dest, dest_dirFilt;
        
         
-        imshow("circuit board.jpg", img);
+        imshow("motion.jpg", img);
+        
+        
         
         int k = waitKey(0);
         
-        cvtColor(img, sobel_img, COLOR_BGR2GRAY); // Generates grayscale image
-        cvtColor(img, laplace_gray, COLOR_BGR2GRAY);
-        cvtColor(img, canny_img, COLOR_BGR2GRAY);
         
-        Canny(canny_img, canny_img, 0, 0.15);
+        Mat kernel = (Mat_<double>(3, 3) << 0.111, 0.111,  0.111,
+                      0.111,  0.111, 0.111,
+                     0.111, 0.111,  0.111);
         
-       
+        filter2D(img, dest, img.depth(), kernel);
         
-        Mat grad_x, grad_y;
-        Mat abs_grad_x, abs_grad_y;
+        Mat kernel_dir = (Mat_<double>(3, 3) << 1./16, 1./8, 1./16,
+                      1./8, 1./4, 1./8,
+                      1./16, 1./8, 1./16);
         
-        Sobel(sobel_img, grad_x, CV_16S, 1, 0, 1, 1, 0.01, BORDER_DEFAULT);
+        filter2D(img, dest_dirFilt, img.depth(), kernel_dir);
         
-        Sobel(sobel_img, grad_y, CV_16S, 1, 0, 1, 1, 0.01, BORDER_DEFAULT);
         
-        Laplacian(laplace_gray, laplace_img, CV_16S, 3, 1, 0, BORDER_DEFAULT);
-        convertScaleAbs(laplace_img, abs_laplace_img);
-
-        // converting back to CV_8U
-        convertScaleAbs(grad_x, abs_grad_x);
-        convertScaleAbs(grad_y, abs_grad_y);
-        addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, sobel_img);
         
-        imshow("Sobel edge detection", sobel_img);
-        k = waitKey(0);
         
-        imshow("Laplacian Edge Detection", abs_laplace_img);
-        k = waitKey(0);
+        imshow("Averaging filter", dest); // Averaging filter
+        waitKey();
         
-        imshow("Canny Edge Detection", canny_img);
-        k = waitKey(0);
+        imshow("Directional Averaging filter", dest_dirFilt);
+        waitKey();
         
-
-       // Mat img2(img1); Copies img1 into img2
         
-        // Mat D(img1, Rect(200, 200, 100, 100)); Creates a sub image at x, y by nxn
        
         return 0;
     }
